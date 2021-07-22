@@ -9,4 +9,22 @@ body {
 
 img {
   max-width: 8rem;
+  transition: 0.2s;
+  position: absolute;
+}
+
+.turn-down {
+  transform: rotate(90deg);
+}
+
+.turn-up {
+  transform: rotate(-90deg);
+}
+
+.turn-left {
+  transform: rotate(180deg);
+}
+
+.turn-right {
+  transform: rotate(0deg);
 }

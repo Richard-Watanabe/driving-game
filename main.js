@@ -4,7 +4,6 @@ var directionData = {
   yCoordinate: 0,
   started: false
 };
-
 var $raceCar = document.querySelector('img');
 var $body = document.querySelector('body');
 var xAxis = 0;
@@ -16,11 +15,28 @@ var up;
 
 $body.addEventListener('keydown', turnCar);
 
-function startCar() {
-  xAxis = xAxis + 10;
-  directionData.xCoordinate = xAxis;
-  $raceCar.style.left = xAxis + 'px';
-  directionData.started = true;
+function moveCar() {
+  if (directionData.direction === 'east') {
+    xAxis = xAxis + 10;
+    directionData.xCoordinate = xAxis;
+    $raceCar.style.left = xAxis + 'px';
+    directionData.started = true;
+  } else if (directionData.direction === 'south') {
+    yAxis = yAxis + 10;
+    directionData.yCoordinate = yAxis;
+    $raceCar.style.top = yAxis + 'px';
+    directionData.started = true;
+  } else if (directionData.direction === 'north') {
+    yAxis = yAxis - 10;
+    directionData.yCoordinate = yAxis;
+    $raceCar.style.top = yAxis + 'px';
+    directionData.started = true;
+  } else if (directionData.direction === 'west') {
+    xAxis = xAxis - 10;
+    directionData.xCoordinate = xAxis;
+    $raceCar.style.left = xAxis + 'px';
+    directionData.started = true;
+  }
 }
 
 function stopCar() {
@@ -29,27 +45,6 @@ function stopCar() {
   clearInterval(down);
   clearInterval(left);
   clearInterval(up);
-}
-
-function goDown() {
-  yAxis = yAxis + 10;
-  directionData.yCoordinate = yAxis;
-  $raceCar.style.top = yAxis + 'px';
-  directionData.started = true;
-}
-
-function goLeft() {
-  xAxis = xAxis - 10;
-  directionData.xCoordinate = xAxis;
-  $raceCar.style.left = xAxis + 'px';
-  directionData.started = true;
-}
-
-function goUp() {
-  yAxis = yAxis - 10;
-  directionData.yCoordinate = yAxis;
-  $raceCar.style.top = yAxis + 'px';
-  directionData.started = true;
 }
 
 function turnCar(event) {
@@ -67,14 +62,17 @@ function turnCar(event) {
     directionData.direction = 'east';
   } else if (event.keyCode === 32 && directionData.started === false) {
     if (directionData.direction === 'east') {
-      start = setInterval(startCar, 16);
-      startCar();
+      start = setInterval(moveCar, 16);
+      moveCar();
     } else if (directionData.direction === 'south') {
-      down = setInterval(goDown, 16);
+      down = setInterval(moveCar, 16);
+      moveCar();
     } else if (directionData.direction === 'north') {
-      up = setInterval(goUp, 16);
+      up = setInterval(moveCar, 16);
+      moveCar();
     } else if (directionData.direction === 'west') {
-      left = setInterval(goLeft, 16);
+      left = setInterval(moveCar, 16);
+      moveCar();
     }
   } else if (event.keyCode === 32 && directionData.started === true) {
     stopCar();
